@@ -1,3 +1,49 @@
 #!/usr/bin/env ruby
 
-require "shellject"
+require 'shellject'
+require 'optparse'
+
+options = {
+  task: :load
+}
+@parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: shellject [options] FILE'
+
+  opts.separator ''
+  opts.on('-l', '--load', 'Loads the named shelljection [default]') do
+    options[:task] = :save
+  end
+  opts.on('-s', '--save', 'Saves the named file as a shelljection') do
+    options[:task] = :save
+  end
+
+  opts.separator ''
+  opts.on('-h', '--help', 'Show this help') do
+    puts opts
+    exit
+  end
+  opts.on_tail('--version', 'Show version') do
+    puts Shellject::VERSION
+    exit
+  end
+end
+@parser.parse!
+
+def error_help(message)
+  STDERR.puts message
+  STDERR.puts
+  STDERR.puts @parser
+  exit 1
+end
+
+begin
+  file_name = ARGV.first
+  if file_name.nil?
+    error_help 'No FILE specified'
+  else
+    Shellject::Runner.new(options, file_name).call
+    exit 0
+  end
+rescue Shellject::ShelljectError => ex
+  error_help ex, ex.backtrace
+end

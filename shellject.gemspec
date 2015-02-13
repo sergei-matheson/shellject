@@ -4,34 +4,35 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'shellject/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "shellject"
+  spec.name          = 'shellject'
   spec.version       = Shellject::VERSION
-  spec.authors       = ["Sergei Matheson"]
-  spec.email         = ["sergei.matheson@gmail.com"]
+  spec.authors       = ['Sergei Matheson']
+  spec.email         = ['sergei.matheson@gmail.com']
 
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
   end
 
-  spec.summary       = %q{Secure storage and injection of environment variables.}
-  spec.description   = %q{Store your secret environment variables with GPGME, and inject them into your current shell when needed.}
-  spec.homepage      = "https://github.com/sergei-matheson/shellject"
-  spec.license       = "MIT"
+  spec.summary       = 'Secure storage and injection of environment variables.'
+  spec.description   = 'Store your secret environment variables with GPGME, and inject them into your current shell when needed.'
+  spec.homepage      = 'https://github.com/sergei-matheson/shellject'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   spec.post_install_message = <<-eos
 Shellject:
   You can initialise your installation with `shellject --init`.
   eos
 
+  spec.add_dependency 'gpgme'
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "pry", "~> 0.10"
+  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'pry', '~> 0.10'
 
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'rubocop'
@@ -40,5 +41,4 @@ Shellject:
   spec.add_development_dependency 'cane'
 
   spec.add_development_dependency 'codeclimate-test-reporter'
-
 end
