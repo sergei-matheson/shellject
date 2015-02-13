@@ -23,7 +23,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.post_install_message = "When you HTTParty, you must party hard!"
+  spec.post_install_message = <<-eos
+Shellject:
+  You can initialise your installation with `shellject --init`.
+  eos
+
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
