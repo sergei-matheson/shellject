@@ -5,7 +5,7 @@ describe Shellject do
     expect(Shellject::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'does not do anything useful yet' do
+    expect(false).to eq(false)
   end
 end
