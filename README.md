@@ -2,6 +2,10 @@
 
 Store your secret environment variables with GPGME, and inject them into your current shell when needed.
 
+[![Build Status](https://travis-ci.org/sergei-matheson/shellject.svg?branch=master)](https://travis-ci.org/sergei-matheson/shellject)
+[![Code Climate](https://codeclimate.com/github/sergei-matheson/shellject/badges/gpa.svg)](https://codeclimate.com/github/sergei-matheson/shellject)
+[![Test Coverage](https://codeclimate.com/github/sergei-matheson/shellject/badges/coverage.svg)](https://codeclimate.com/github/sergei-matheson/shellject)
+
 ## Installation
 
 Add this line to your application's Gemfile:
