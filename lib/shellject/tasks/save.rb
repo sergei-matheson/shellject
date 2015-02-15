@@ -9,7 +9,12 @@ module Shellject
       end
 
       def call
-        crypto.encrypt input_path, output: output_path
+        from = File.open(input_path)
+        to = File.open(output_path, 'wb')
+        crypto.encrypt from, output: to
+      ensure
+        from.close
+        to.close
       end
 
       private
@@ -27,7 +32,7 @@ module Shellject
       end
 
       def save_directory
-        '~/.shellject/shelljections'
+        File.expand_path '~/.shellject/shelljections'
       end
     end
   end
