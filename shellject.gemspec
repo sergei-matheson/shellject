@@ -9,10 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Sergei Matheson']
   spec.email         = ['sergei.matheson@gmail.com']
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
-  end
-
   spec.summary       = 'Secure storage and injection of environment variables.'
   spec.description   = 'Store your secret environment variables with GPGME, and inject them into your current shell when needed.'
   spec.homepage      = 'https://github.com/sergei-matheson/shellject'
