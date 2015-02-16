@@ -26,12 +26,23 @@ module Shellject
         expect(GPGME::Crypto).to have_received(:new).with(always_trust: true)
       end
 
-      it 'opens the input path for reading' do
-        expect(File).to have_received(:open).with(input_path)
+      describe 'input file' do
+        it 'is opened for reading' do
+          expect(File).to have_received(:open).with(input_path)
+        end
+        it 'is closed after reading' do
+          expect(input).to have_received(:close)
+        end
       end
 
-      it 'opens the correct output path for writing' do
-        expect(File).to have_received(:open).with(output_path, 'wb')
+      describe 'output file' do
+        it 'is opened for writing' do
+          expect(File).to have_received(:open).with(output_path, 'wb')
+        end
+
+        it 'is closed after writing' do
+          expect(output).to have_received(:close)
+        end
       end
 
       it 'encrypts the input file to the correct output file' do

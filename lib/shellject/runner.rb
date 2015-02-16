@@ -15,7 +15,7 @@ module Shellject
     private
 
     def task
-      @task = task_factory.create(options[:task], file_name)
+      task_factory.create(options[:task], file_name)
     end
 
     def task_factory
