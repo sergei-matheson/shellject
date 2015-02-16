@@ -1,6 +1,6 @@
 # Shellject
 
-Store your secret environment variables with GPGME, and inject them into your current shell when needed.
+Store your secret environment variables (API keys, AWS secrets etc.) with GPGME, and inject them into your current shell when needed.
 
 [![Build Status](https://travis-ci.org/sergei-matheson/shellject.svg?branch=master)](https://travis-ci.org/sergei-matheson/shellject)
 [![Code Climate](https://codeclimate.com/github/sergei-matheson/shellject/badges/gpa.svg)](https://codeclimate.com/github/sergei-matheson/shellject)
@@ -8,23 +8,39 @@ Store your secret environment variables with GPGME, and inject them into your cu
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1. Install [GPGTools](https://gpgtools.org) on OSX and create a new key pair, if you don't have one already
+1. If you have more than 1 secret key in your keyring, you may want to ensure that the 'default-key' is specified in ~/.gnupg/gpg.conf
+1. Then install the gem:
+  ```ruby
+  # In your Gemfile
+  gem 'shellject'
+  ```
 
-```ruby
-gem 'shellject'
-```
+  And then execute:
 
-And then execute:
-
+    ```
     $ bundle
+    ```
 
-Or install it yourself as:
+  Or install it yourself as:
 
+    ```
     $ gem install shellject
+    ```
+
+  *You may need to brew install gpgme on mac, or use your favourite package manager in linux*
+
+4. Finally, run
+
+    ```
+    $ shellject setup
+    ```
+  to set up the shell wrapper needed for injection, and, optionally, command-line completion.
+
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ shellject --help
 
 ## Development
 
