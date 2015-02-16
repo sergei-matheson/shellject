@@ -8,14 +8,26 @@ module Shellject
       let(:input) { instance_double('File', close: nil) }
 
       let(:output_path) do
-        File.expand_path('~/.shellject/shelljections/my_file.gpg')
+        instance_double('Pathname', parent: parent)
       end
+
+      let(:save_directory) do
+        instance_double(
+          'Shellject::SaveDirectory',
+          path_for: output_path
+        )
+      end
+
+      let(:parent) { instance_double('Pathname') }
+
       let(:output) { instance_double('File', close: nil) }
 
       let(:crypto) { instance_double('GPGME::Crypto', encrypt: nil) }
       subject { Tasks::Save.new input_path }
 
       before do
+        allow(SaveDirectory).to receive(:new).and_return save_directory
+        allow(FileUtils).to receive(:mkdir_p)
         allow(GPGME::Crypto).to receive(:new).and_return crypto
         allow(File).to receive(:open).with(input_path).and_return input
         allow(File).to receive(:open).with(output_path, 'wb').and_return output
@@ -36,6 +48,16 @@ module Shellject
       end
 
       describe 'output file' do
+        it 'has its parent directory created' do
+          expect(FileUtils).to have_received(:mkdir_p).with(parent)
+        end
+
+        it 'is determined from the input path' do
+          expect(save_directory).to have_received(:path_for).with(
+            input_path
+          )
+        end
+
         it 'is opened for writing' do
           expect(File).to have_received(:open).with(output_path, 'wb')
         end

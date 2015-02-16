@@ -11,7 +11,7 @@ options = {
 
   opts.separator ''
   opts.on('-l', '--load', 'Loads the named shelljection [default]') do
-    options[:task] = :save
+    options[:task] = :load
   end
   opts.on('-s', '--save', 'Saves the named file as a shelljection') do
     options[:task] = :save

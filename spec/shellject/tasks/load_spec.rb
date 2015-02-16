@@ -5,18 +5,24 @@ module Shellject
   describe Tasks::Load do
     context 'when initialised and called with a file name' do
       let(:name) { 'my-variables' }
-      let(:path) do
-        File.expand_path('~/.shellject/shelljections/my-variables.gpg')
-      end
+      let(:path) { instance_double('Pathname') }
       let(:file) { instance_double('File', close: nil) }
 
       let(:crypto) do
         instance_double('GPGME::Crypto', decrypt: 'decrypted content')
       end
 
+      let(:save_directory) do
+        instance_double(
+          'Shellject::SaveDirectory',
+          path_for: path
+        )
+      end
+
       subject { Tasks::Load.new name }
 
       before do
+        allow(SaveDirectory).to receive(:new).and_return(save_directory)
         allow(GPGME::Crypto).to receive(:new).and_return crypto
         allow(File).to receive(:open).with(path).and_return file
         allow(STDOUT).to receive(:print)
@@ -28,6 +34,11 @@ module Shellject
       end
 
       describe 'input file' do
+        it 'is determined from the name' do
+          expect(save_directory).to have_received(:path_for).with(
+            name
+          )
+        end
         it 'is opened for reading' do
           expect(File).to have_received(:open).with(path)
         end

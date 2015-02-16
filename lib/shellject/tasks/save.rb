@@ -9,30 +9,33 @@ module Shellject
       end
 
       def call
-        from = File.open(input_path)
-        to = File.open(output_path, 'wb')
-        crypto.encrypt from, output: to
-      ensure
-        from.close
-        to.close
+        ensure_parent
+        with_files do |from, to|
+          crypto.encrypt from, output: to
+        end
       end
 
       private
 
-      def output_path
-        File.join(save_directory, output_basename)
+      def with_files
+        from = File.open(input_path)
+        to = File.open(output_path, 'wb')
+        yield from, to
+      ensure
+        from.close if from
+        to.close if to
       end
 
-      def output_basename
-        "#{File.basename(input_path, '.*')}.gpg"
+      def ensure_parent
+        FileUtils.mkdir_p output_path.parent
+      end
+
+      def output_path
+        @output_path ||= SaveDirectory.new.path_for input_path
       end
 
       def crypto
         GPGME::Crypto.new always_trust: true
-      end
-
-      def save_directory
-        File.expand_path '~/.shellject/shelljections'
       end
     end
   end

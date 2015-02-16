@@ -12,25 +12,17 @@ module Shellject
         file = File.open path
         STDOUT.print crypto.decrypt(file)
       ensure
-        file.close
+        file.close if file
       end
 
       private
 
       def path
-        File.join(save_directory, basename)
-      end
-
-      def basename
-        "#{name}.gpg"
+        SaveDirectory.new.path_for name
       end
 
       def crypto
         GPGME::Crypto.new always_trust: true
-      end
-
-      def save_directory
-        File.expand_path '~/.shellject/shelljections'
       end
     end
   end
