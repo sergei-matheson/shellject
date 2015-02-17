@@ -5,6 +5,7 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
 [![Build Status](https://travis-ci.org/sergei-matheson/shellject.svg?branch=master)](https://travis-ci.org/sergei-matheson/shellject)
 [![Code Climate](https://codeclimate.com/github/sergei-matheson/shellject/badges/gpa.svg)](https://codeclimate.com/github/sergei-matheson/shellject)
 [![Test Coverage](https://codeclimate.com/github/sergei-matheson/shellject/badges/coverage.svg)](https://codeclimate.com/github/sergei-matheson/shellject)
+[![Gem Version](https://badge.fury.io/rb/shellject.svg)](http://badge.fury.io/rb/shellject)
 
 ## Installation
 
