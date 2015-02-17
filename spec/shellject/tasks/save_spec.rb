@@ -78,7 +78,7 @@ module Shellject
         end
         context 'when name is specified' do
           let(:name) { 'woot' }
-          it 'is determined from the input path' do
+          it 'is determined from the name' do
             expect(save_directory).to receive(:path_for).with(
               'woot'
             )
