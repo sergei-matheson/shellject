@@ -49,4 +49,23 @@ Clamp do
     end
   end
 
+  subcommand 'setup', 'Setup wrapper and completion' do
+    def execute
+
+      bash_dir = Pathname.new File.expand_path('../bash', __dir__)
+      puts <<-eos
+# You'll need to source the bash wrapper in order for values to be injected
+# into your shell.
+# Add the following line to your ~/.bash_profile or ~/.bashrc
+
+source #{bash_dir.join 'shellject_wrapper.sh'}
+
+# To add command line completion, add the following line to your ~/.bash_profile or ~/.bashrc
+
+source #{bash_dir.join 'shellject_completion.sh'}
+
+      eos
+    end
+  end
+
 end

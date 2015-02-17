@@ -1,5 +1,7 @@
-require 'gpgme'
 require 'fileutils'
+require 'pathname'
+
+require 'gpgme'
 
 require 'shellject/version'
 require 'shellject/save_directory'

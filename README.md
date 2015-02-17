@@ -35,7 +35,7 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
     ```
     $ shellject setup
     ```
-  to set up the shell wrapper needed for injection, and, optionally, command-line completion.
+  for instructions on how to set up the shell wrapper needed for injection, and, optionally, command-line completion.
 
 
 ## Usage
