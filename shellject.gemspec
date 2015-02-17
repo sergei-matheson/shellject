@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.post_install_message = <<-eos
 Shellject:
-  You can initialise your installation with `shellject --init`.
+  You can get instructions on how to setup your installation with `shellject setup`.
   eos
 
   spec.add_dependency 'gpgme'
