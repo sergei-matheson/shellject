@@ -2,13 +2,15 @@ module Shellject
   module Tasks
     # Loads, decrypts, and outputs a shelljection
     class Load
-      attr_reader :name
+      attr_reader :save_directory, :name
 
-      def initialize(name)
+      def initialize(save_directory, name)
+        @save_directory = save_directory
         @name = name
       end
 
       def call
+        ensure_readable
         file = File.open path
         STDOUT.print crypto.decrypt(file)
       ensure
@@ -17,8 +19,16 @@ module Shellject
 
       private
 
+      def ensure_readable
+        fail ShelljectError, "Could not read file #{path}" unless readable?
+      end
+
+      def readable?
+        path.readable?
+      end
+
       def path
-        SaveDirectory.new.path_for name
+        @path ||= save_directory.path_for name
       end
 
       def crypto

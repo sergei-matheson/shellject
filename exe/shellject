@@ -1,49 +1,52 @@
 #!/usr/bin/env ruby
 
 require 'shellject'
-require 'optparse'
+require 'clamp'
 
-options = {
-  task: :load
-}
-@parser = OptionParser.new do |opts|
-  opts.banner = 'Usage: shellject [options] FILE'
+Clamp do
 
-  opts.separator ''
-  opts.on('-l', '--load', 'Loads the named shelljection [default]') do
-    options[:task] = :load
-  end
-  opts.on('-s', '--save', 'Saves the named file as a shelljection') do
-    options[:task] = :save
-  end
+  option ['--save-dir', '-s'], 'DIRECTORY',
+    'The directory in which to store encrypted shelljections.',
+    environment_variable: 'SHELLJECT_SAVE_DIR',
+    default: '~/.shellject/shelljections',
+    attribute_name: 'save_dir_path'
 
-  opts.separator ''
-  opts.on('-h', '--help', 'Show this help') do
-    puts opts
-    exit
-  end
-  opts.on_tail('--version', 'Show version') do
+  option ['--version', '-v'], :flag, 'Show version' do
     puts Shellject::VERSION
-    exit
+    exit(0)
   end
-end
-@parser.parse!
 
-def error_help(message)
-  STDERR.puts message
-  STDERR.puts
-  STDERR.puts @parser
-  exit 1
-end
-
-begin
-  file_name = ARGV.first
-  if file_name.nil?
-    error_help 'No FILE specified'
-  else
-    Shellject::Runner.new(options, file_name).call
-    exit 0
+  def save_directory
+    Shellject::SaveDirectory.new(File.expand_path save_dir_path)
   end
-rescue Shellject::ShelljectError => ex
-  error_help ex, ex.backtrace
+
+  def with_error_handling
+    yield
+  rescue Shellject::ShelljectError => ex
+    STDERR.puts "ERROR: #{ex.message}"
+    STDERR.puts help
+    exit(1)
+  end
+
+  subcommand 'save', 'Save the specified file as a shelljection' do
+    option ['--name', '-n'], 'NAME',
+      'What to name the shelljection. If not specified, the basename of the file will be used.'
+    parameter 'INPUT_FILE', 'File to save', :attribute_name => :input_file
+    def execute
+      with_error_handling do
+        Shellject::Tasks::Save.new(save_directory, input_file, name).call
+      end
+    end
+  end
+
+  subcommand 'load', 'Load the specified shelljection' do
+    parameter 'NAME',
+      'Name of the shelljection to load', :attribute_name => :name
+    def execute
+      with_error_handling do
+        Shellject::Tasks::Load.new(save_directory, name).call
+      end
+    end
+  end
+
 end
