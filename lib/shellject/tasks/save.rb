@@ -2,6 +2,7 @@ module Shellject
   module Tasks
     # Encrypts and saves a file as a shelljection.
     class Save
+      include CryptoTask
       attr_reader :save_directory, :input_path, :name
 
       def initialize(save_directory, input_path, name = nil)
@@ -31,7 +32,7 @@ module Shellject
 
       def ensure_writable
         FileUtils.mkdir_p(output_path.parent)
-        fail ShelljectError, "Cannot save to #{output_path}" unless writable?
+        raise ShelljectError, "Cannot save to #{output_path}" unless writable?
       end
 
       def writable?
@@ -39,7 +40,7 @@ module Shellject
       end
 
       def ensure_readable
-        fail ShelljectError, "Cannot read file #{input_path}" unless readable?
+        raise ShelljectError, "Cannot read file #{input_path}" unless readable?
       end
 
       def readable?
@@ -52,10 +53,6 @@ module Shellject
 
       def name
         @name ||= File.basename(input_path)
-      end
-
-      def crypto
-        GPGME::Crypto.new always_trust: true
       end
     end
   end
