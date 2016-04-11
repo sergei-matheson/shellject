@@ -59,7 +59,7 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
      
      `echo $OTHER_VAR # "stuff"`
    1. *REMOVE THE ORIGINAL FILE!*
-   1. Now, you can securely load the enviroment variables whenever you wish:
+   1. Now, you can securely load the environment variables whenever you wish:
    
      `$ shellject load stuff`
 
