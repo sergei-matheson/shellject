@@ -1,8 +1,9 @@
 language: ruby
 rvm:
-  - 2.1.8
-  - 2.2.4
-  - 2.3.1
+  - 2.1.10 # In security maintenance phase (will EOL soon!)
+  - 2.2.6
+  - 2.3.3
+  - 2.4.0
 addons:
     code_climate:
       repo_token: 0c1e171a171c155a28b285b4f51de50259744fdc720521df22a18d028774881d
