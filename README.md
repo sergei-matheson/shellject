@@ -19,23 +19,23 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
 
   And then execute:
 
-    ```
-    $ bundle
-    ```
+  ```sh
+  $ bundle
+  ```
 
   Or install it yourself as:
 
-    ```
-    $ gem install shellject
-    ```
+  ```sh
+  $ gem install shellject
+  ```
 
   *You may need to brew install gpgme on mac, or use your favourite package manager in linux*
 
 4. Finally, run
 
-    ```
-    $ shellject setup
-    ```
+  ```sh
+  $ shellject setup
+  ```
   for instructions on how to set up the shell wrapper needed for injection, and, optionally, command-line completion.
 
 
@@ -44,26 +44,28 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
 ### Creating a new shelljection
    1. Create a text file with the shell code you wish to have securely injected. Here's one we prepared earlier:
      
-    `$ cat my-secret-stuff.sh`
-     ```
+    $ cat my-secret-stuff.sh
+    >
      export SECRET_APIKEY=abc123
      export OTHER_VAR=stuff
-     ```
+     
    1. Save the file contents as a shelljection:
-     `$ shellject save --name stuff my-secret-stuff.sh`
+     
+     $ shellject save --name stuff my-secret-stuff.sh
+     
    1. Test the shelljection:
    
-     `$ shellject load stuff`
+     $ shellject load stuff
 
-     `echo $SECRET_APIKEY # "abc123"`
+     echo $SECRET_APIKEY # "abc123"
      
-     `echo $OTHER_VAR # "stuff"`
+     echo $OTHER_VAR # "stuff"
    1. *REMOVE THE ORIGINAL FILE!*
    1. Now, you can securely load the environment variables whenever you wish:
-   
-     `$ shellject load stuff`
 
-###For further help and options:
+     $ shellject load stuff`
+
+### For further help and options:
 `$ shellject --help`
 ## Development
 
