@@ -49,19 +49,19 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
      export SECRET_APIKEY=abc123
      export OTHER_VAR=stuff
      
-   1. Save the file contents as a shelljection:
+   2. Save the file contents as a shelljection:
      
      $ shellject save --name stuff my-secret-stuff.sh
      
-   1. Test the shelljection:
+   3. Test the shelljection:
    
      $ shellject load stuff
 
      echo $SECRET_APIKEY # "abc123"
      
      echo $OTHER_VAR # "stuff"
-   1. *REMOVE THE ORIGINAL FILE!*
-   1. Now, you can securely load the environment variables whenever you wish:
+   4. *REMOVE THE ORIGINAL FILE!*
+   5. Now, you can securely load the environment variables whenever you wish:
 
      $ shellject load stuff`
 
