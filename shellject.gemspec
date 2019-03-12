@@ -27,7 +27,7 @@ Shellject:
   spec.add_dependency 'gpgme'
   spec.add_dependency 'clamp'
 
-  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'pry', '~> 0.10'
 
