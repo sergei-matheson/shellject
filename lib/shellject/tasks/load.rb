@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shellject
   module Tasks
     # Loads, decrypts, and outputs a shelljection
@@ -15,7 +17,7 @@ module Shellject
         file = File.open path
         STDOUT.print crypto.decrypt(file)
       ensure
-        file.close if file
+        file&.close
       end
 
       private

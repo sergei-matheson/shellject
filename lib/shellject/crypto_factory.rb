@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shellject
   # Factory method for creating crypto instances.
   module CryptoFactory

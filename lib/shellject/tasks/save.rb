@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Shellject
   module Tasks
     # Encrypts and saves a file as a shelljection.
     class Save
       include CryptoTask
-      attr_reader :save_directory, :input_path, :name
+      attr_reader :save_directory, :input_path
 
       def initialize(save_directory, input_path, name = nil)
         @save_directory = save_directory
@@ -26,8 +28,8 @@ module Shellject
         to = File.open(output_path, 'wb')
         yield from, to
       ensure
-        from.close if from
-        to.close if to
+        from&.close
+        to&.close
       end
 
       def ensure_writable

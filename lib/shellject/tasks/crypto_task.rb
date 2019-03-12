@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shellject
   module Tasks
     # A task that needs access to a crypto instance
