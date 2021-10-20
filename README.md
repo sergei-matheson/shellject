@@ -63,7 +63,7 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
    4. *REMOVE THE ORIGINAL FILE!*
    5. Now, you can securely load the environment variables whenever you wish:
 
-     $ shellject load stuff`
+     $ shellject load stuff
 
 ### For further help and options:
 `$ shellject --help`
