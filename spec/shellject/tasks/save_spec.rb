@@ -117,6 +117,19 @@ module Shellject
         )
         subject.call
       end
+
+      context 'when the input is an in-memory stream' do
+        let(:input_path) { StringIO.new('export SECRET=value') }
+        let(:name) { 'aws' }
+
+        it 'encrypts the stream without opening it as a file' do
+          expect(File).not_to receive(:open).with(input_path)
+          expect(File).to receive(:open).with(output_path, 'wb').and_return(output)
+          expect(crypto).to receive(:encrypt).with(input_path, output: output)
+
+          subject.call
+        end
+      end
     end
   end
 end
