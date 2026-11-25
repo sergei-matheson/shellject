@@ -29,12 +29,22 @@ Clamp do
   end
 
   subcommand 'save', 'Save the specified file as a shelljection' do
+    option ['--aws'], :flag,
+      'Save the current AWS credentials and region environment variables.'
     option ['--name', '-n'], 'NAME',
       'What to name the shelljection. If not specified, the basename of the file will be used.'
-    parameter 'INPUT_FILE', 'File to save', :attribute_name => :input_file
+    parameter '[INPUT_FILE]', 'File to save', :attribute_name => :input_file
     def execute
       with_error_handling do
-        Shellject::Tasks::Save.new(save_directory, input_file, name).call
+        if aws?
+          raise Shellject::ShelljectError, 'An input file cannot be used with --aws' if input_file
+
+          Shellject::Tasks::SaveAws.new(save_directory, name).call
+        else
+          raise Shellject::ShelljectError, 'An input file is required unless --aws is specified' unless input_file
+
+          Shellject::Tasks::Save.new(save_directory, input_file, name).call
+        end
       end
     end
   end

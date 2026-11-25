@@ -53,6 +53,12 @@ Store your secret environment variables (API keys, AWS secrets etc.) with GPGME,
      
      $ shellject save --name stuff my-secret-stuff.sh
      
+   To save the AWS credentials and region currently set in your environment:
+
+     $ shellject save --aws
+
+   This creates a shelljection named `aws` by default. Use `--name` to choose another name.
+
    3. Test the shelljection:
    
      $ shellject load stuff

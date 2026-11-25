@@ -24,7 +24,7 @@ module Shellject
       private
 
       def with_files
-        from = File.open(input_path)
+        from = input_stream? ? input_path : File.open(input_path)
         to = File.open(output_path, 'wb')
         yield from, to
       ensure
@@ -46,7 +46,11 @@ module Shellject
       end
 
       def readable?
-        File.readable? input_path
+        input_stream? ? !input_path.closed? : File.readable?(input_path)
+      end
+
+      def input_stream?
+        input_path.respond_to?(:read)
       end
 
       def output_path
